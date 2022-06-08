@@ -1,7 +1,7 @@
 package com.example.order.entity;
 
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,12 +14,22 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+/**
+ * Please note:
+ * - @JsonManagedReference is the forward part of reference – the one that gets serialized normally.
+ * - @JsonBackReference is the back part of reference – it will be omitted from serialization.
+ * - For example, the serialized Invoice object does not contain a reference to the Customer object.
+ *
+ */
 
 @Data
 @AllArgsConstructor
@@ -51,10 +61,14 @@ public class Customer {
 	private String phone;
 	private Date dateOfBirth;
 	
+	// Relationship Mappings
+	@JsonManagedReference("customerInvoiceRef")
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
-	private Collection<Invoice> invoices;
+	private List<Invoice> invoices;
+	@JsonManagedReference("customerAddressRef")
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
-	private Collection<Address> addresses;
+	private List<Address> addresses;
+	@JsonManagedReference("customerPaymentRef")
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
-	private Collection<Payment> payments;
+	private List<Payment> payments;
 }

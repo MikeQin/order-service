@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,6 +31,7 @@ public class InvoiceLine {
 	private int quantity;
 	private double lineTotal;
 	
+	@JsonBackReference("invoiceInvoiceLineRef")
 	@ManyToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
 	private Invoice invoice;

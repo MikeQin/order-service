@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,6 +37,7 @@ public class Delivery {
 	private Date readyTime;
 	private Date deliveryTime;
 	
+	@JsonBackReference("invoiceDeliveryRef")
 	@OneToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false) // FK
 	private Invoice invoice;

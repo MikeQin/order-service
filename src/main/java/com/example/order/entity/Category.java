@@ -1,13 +1,16 @@
 package com.example.order.entity;
 
-import java.util.Collection;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,10 +32,12 @@ public class Category {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	@NotBlank
+	@Column(unique = true)
 	private String name;
 	private String description;
 	
+	@JsonManagedReference("categoryProductRef")
 	@OneToMany(mappedBy = "category")
-	private Collection<Product> products;
+	private List<Product> products;
 
 }
