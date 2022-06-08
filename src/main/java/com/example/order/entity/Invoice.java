@@ -49,6 +49,7 @@ public class Invoice {
 	private double subTotal;
 	private double tax;
 	private double total;
+	private boolean paid;
 	@Basic
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date timestamp;
