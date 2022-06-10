@@ -28,7 +28,7 @@ import com.example.order.service.ProductService;
 import lombok.extern.java.Log;
 
 @RestController
-@RequestMapping("/rest") // Manual control
+@RequestMapping("/alt") // alternate API
 @ResponseBody
 @Log
 @SuppressWarnings("unused")

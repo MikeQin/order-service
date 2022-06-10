@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -23,6 +24,7 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
+@Table(name = "INVOICE_LINE")
 public class InvoiceLine {
 	
 	@Id
@@ -31,13 +33,15 @@ public class InvoiceLine {
 	private int quantity;
 	private double lineTotal;
 	
+	//######### Relationship Mappings ############
+	
 	@JsonBackReference("invoiceInvoiceLineRef")
 	@ManyToOne
-	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "invoice_id", referencedColumnName = "id")
 	private Invoice invoice;
 	
 	@ManyToOne
-	@JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	private Product product;
 
 }

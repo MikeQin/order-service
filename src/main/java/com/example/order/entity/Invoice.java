@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,8 +36,13 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
-@Table(name = "invoice")
+@Table(name = "INVOICE")
 public class Invoice {
+	
+	// Model Order(Invoice) as a State Machine
+	enum Status {
+		CREATED, PAID, READY_TO_DELIVER, COMPLETED, CANCELED, REFUNDED
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -49,25 +55,29 @@ public class Invoice {
 	private double subTotal;
 	private double tax;
 	private double total;
-	private boolean paid;
+	@Builder.Default
+	private String status = Status.CREATED.name();
 	@Basic
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp;
+	@Builder.Default
+	private Date createTime = new Date();
+	
+	//######### Relationship Mappings ############
 	
 	@JsonBackReference("customerInvoiceRef")
 	@ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
 	private Customer customer;
 	
 	@JsonManagedReference("invoiceInvoiceLineRef")
-	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<InvoiceLine> invoiceLines;
 	
-	@ManyToOne
-	@JoinColumn(name = "payment_id", referencedColumnName = "id", nullable = false)
-	private Payment payment;
+	@JsonManagedReference("invoicePaymentRef")
+	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<Payment> payments;
 
 	@JsonManagedReference("invoiceDeliveryRef")
-	@OneToOne(mappedBy = "invoice", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Delivery delivery;
 }

@@ -2,12 +2,16 @@ package com.example.order.entity;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -26,24 +30,31 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
+@Table(name = "PAYMENT")
 public class Payment {
-
+	
+	enum Status {
+		SUCCESS, FAILURE, PENDING
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
+	private double amount;
+	@Basic
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date transactionTime;
 	@NotBlank
-	private String cardType; // Visa, MasterCard
-	@NotBlank
-	private String cardNumber;
-	@NotBlank
-	private Date expiryDate;
-	@NotBlank
-	private String cardHolder;
-	private String cvcCode;
+	private String status;
 	
-	@JsonBackReference("customerPaymentRef")
+	//######### Relationship Mappings ############
+	
 	@ManyToOne
-	@JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
-	private Customer customer;
-
+	@JoinColumn(name = "credit_card_id", referencedColumnName = "id") // FK
+	private CreditCard creditCard;
+	
+	@JsonBackReference("invoicePaymentRef")
+	@ManyToOne
+	@JoinColumn(name = "invoice_id", referencedColumnName = "id") // FK
+	private Invoice invoice;
 }

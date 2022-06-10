@@ -2,13 +2,13 @@ package com.example.order.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -27,6 +27,7 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
+@Table(name = "PRODUCT")
 public class Product {
 	
 	@Id
@@ -35,24 +36,25 @@ public class Product {
 	@NotBlank
 	@Column(unique = true)
 	private String name;
+	@NotBlank
 	private String description;
 	private double price;
 	@Lob
-	//private byte[] photo;
 	private byte[] photo;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "category_id", referencedColumnName = "id")
+	//######### Relationship Mappings ############
+	
 	@JsonBackReference("categoryProductRef")
+	@ManyToOne
+	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 	
-	public Product copyFrom(Product aProd) {
-		this.id = aProd.id;
-		this.name = aProd.name;
-		this.description = aProd.description;
-		this.photo = aProd.photo;
-		this.category = aProd.category;
+	// Factory
+	public static Product copyFrom(Product p) {
+		Product prod = Product.builder()
+				.id(p.id).name(p.name).description(p.description).price(p.price)
+				.photo(p.photo).category(p.category).build();
 		
-		return this;
+		return prod;
 	}
 }

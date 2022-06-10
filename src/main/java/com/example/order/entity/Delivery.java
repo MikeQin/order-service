@@ -2,12 +2,16 @@ package com.example.order.entity;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -26,6 +30,7 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
+@Table(name = "DELIVERY")
 public class Delivery {
 	
 	@Id
@@ -34,11 +39,17 @@ public class Delivery {
 	@NotBlank
 	private String type; // carry-out, deliver
 	private String description;
+	@Basic
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date readyTime;
+	@Basic
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date deliveryTime;
+	
+	//######### Relationship Mappings ############
 	
 	@JsonBackReference("invoiceDeliveryRef")
 	@OneToOne
-	@JoinColumn(name = "invoice_id", referencedColumnName = "id", nullable = false) // FK
+	@JoinColumn(name = "invoice_id", referencedColumnName = "id") // FK
 	private Invoice invoice;
 }

@@ -3,13 +3,18 @@ package com.example.order.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -38,6 +43,7 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
+@Table(name = "CUSTOMER")
 public class Customer {
 	
 	@Id
@@ -59,16 +65,19 @@ public class Customer {
 	@NotBlank
 	@Size(min=10,max=16)
 	private String phone;
+	@Basic
+	@Temporal(TemporalType.DATE)
 	private Date dateOfBirth;
 	
-	// Relationship Mappings
+	//######### Relationship Mappings ############
+	
 	@JsonManagedReference("customerInvoiceRef")
-	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Invoice> invoices;
 	@JsonManagedReference("customerAddressRef")
-	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Address> addresses;
-	@JsonManagedReference("customerPaymentRef")
-	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL)
-	private List<Payment> payments;
+	@JsonManagedReference("customerCreditCardRef")
+	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<CreditCard> creditCards;
 }

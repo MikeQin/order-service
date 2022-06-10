@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -25,33 +26,33 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
-@Table(name = "ADDRESS")
-public class Address {
+@Table(name = "CREDIT_CARD")
+public class CreditCard {
 	
-	enum AddressType {
-		HOME, OFFICE, MAILING, BILLING
+	enum CreditCardType {
+		VISA, MASTER, DISCOVER, AMERICIAN_EXPRESS
 	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	@NotBlank
-	private String type; // AddressType
+	private String cardType; // CreditCardType
 	@NotBlank
-	private String street;
+	@Size(max=16)
+	private String cardNumber;
 	@NotBlank
-	private String city;
+	private String expiryDate; // Month/Year
 	@NotBlank
-	private String state;
-	@NotBlank
-	private String country;
-	@NotBlank
-	private String zip;
+	private String cardHolderName;
+	@Size(min=3)
+	private String cvcCode;
 	
 	//######### Relationship Mappings ############
 	
-	@JsonBackReference("customerAddressRef")
+	@JsonBackReference("customerCreditCardRef")
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id")
 	private Customer customer;
+
 }

@@ -16,7 +16,7 @@ import com.example.order.repo.AddressRepository;
 import com.example.order.repo.CategoryRepository;
 import com.example.order.repo.CustomerRepository;
 import com.example.order.repo.InvoiceRepository;
-import com.example.order.repo.PaymentRepository;
+import com.example.order.repo.CreditCardRepository;
 import com.example.order.repo.ProductRepository;
 
 import lombok.extern.java.Log;
@@ -31,7 +31,7 @@ public class DbBootstrap implements CommandLineRunner {
 	private final ProductRepository productRepo;
 	private final AddressRepository addressRepo;
 	private final InvoiceRepository invoiceRepo;
-	private final PaymentRepository paymentRepo;
+	private final CreditCardRepository paymentRepo;
 	
 	@Autowired
 	public DbBootstrap(CustomerRepository customerRepo,
@@ -39,7 +39,7 @@ public class DbBootstrap implements CommandLineRunner {
 			ProductRepository productRepo,
 			AddressRepository addressRepo,
 			InvoiceRepository invoiceRepo,
-			PaymentRepository paymentRepo) {
+			CreditCardRepository paymentRepo) {
 		this.customerRepo = customerRepo;
 		this.categoryRepo = categoryRepo;
 		this.productRepo = productRepo;
