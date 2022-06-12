@@ -54,7 +54,7 @@ public class Product {
 	private Category category;
 	
 	@JsonManagedReference("productInventoryRef")
-	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Inventory inventory;
 	
 	// Factory

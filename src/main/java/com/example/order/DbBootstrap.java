@@ -62,26 +62,33 @@ public class DbBootstrap implements CommandLineRunner {
 		
 		if (count == 0) {
 			Category appetizers = this.categoryRepo.findByName("Appetizers");
+			Inventory inv1 = Inventory.builder().name("Appetizers - Chang's Lettuce Wraps").quantity(10)
+					.location("storage-loc-001").build();
 			Product prod1 = Product.builder().name("Chang's Lettuce Wraps")
 					.description("A secret family recipe and our signature dish. Enough said.")
-					.price(5.99).category(appetizers).build();
-			Inventory inv1 = Inventory.builder().name("Chang's Lettuce Wraps").quantity(10)
-					.location("storage-loc-001").product(prod1).build();
+					.price(5.99).category(appetizers).inventory(inv1).build();
+			inv1.setProduct(prod1);
+			
+			Inventory inv2 = Inventory.builder().name("Appetizers - Northern-Style Pork Spare Ribs").quantity(10)
+					.location("storage-loc-002").build();
 			Product prod2 = Product.builder().name("Northern-Style Pork Spare Ribs")
 					.description("Slow-braised pork ribs with dry rub five-spice seasoning, smoked tableside.")
-					.price(9.99).category(appetizers).build();
-			Inventory inv2 = Inventory.builder().name("Northern-Style Pork Spare Ribs").quantity(10)
-					.location("storage-loc-002").product(prod2).build();
+					.price(9.99).category(appetizers).inventory(inv2).build();
+			inv2.setProduct(prod2);
+			
+			Inventory inv3 = Inventory.builder().name("Appetizers - Edamame").quantity(10)
+					.location("storage-loc-003").build();
 			Product prod3 = Product.builder().name("Edamame")
 					.description("Steamed to order, tossed with kosher salt.")
-					.price(6.99).category(appetizers).build();
-			Inventory inv3 = Inventory.builder().name("Edamame").quantity(10)
-					.location("storage-loc-003").product(prod3).build();
+					.price(6.99).category(appetizers).inventory(inv3).build();
+			inv3.setProduct(prod3);
+			
+			Inventory inv4 = Inventory.builder().name("Appetizers - Kung Pao Brussels Sprouts").quantity(10)
+					.location("storage-loc-004").build();
 			Product prod4 = Product.builder().name("Kung Pao Brussels Sprouts")
 					.description("Wok-charred Brussels sprouts, peanuts, chili pods, Kung Pao sauce.")
-					.price(9.99).category(appetizers).build();
-			Inventory inv4 = Inventory.builder().name("Kung Pao Brussels Sprouts").quantity(10)
-					.location("storage-loc-004").product(prod4).build();
+					.price(9.99).category(appetizers).inventory(inv4).build();
+			inv4.setProduct(prod4);
 			
 			List<Product> list = new ArrayList<>();
 			list.add(prod1);

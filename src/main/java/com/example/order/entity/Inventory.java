@@ -18,6 +18,11 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+/**
+ * SQL: SELECT p.name, p.price, i.quantity, i.location FROM PRODUCT p, INVENTORY i where i.product_id = p.id
+ *
+ */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +30,7 @@ import lombok.ToString;
 @Builder
 @EqualsAndHashCode
 @Entity
-@Table(name = "PAYMENT")
+@Table(name = "INVENTORY")
 public class Inventory {
 	
 	@Id
@@ -37,7 +42,7 @@ public class Inventory {
 	private String location;
 	
 	//######### Relationship Mappings ############
-
+	
 	@JsonBackReference("productInventoryRef")
 	@OneToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "id") // FK
