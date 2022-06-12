@@ -11,12 +11,13 @@ import org.springframework.stereotype.Component;
 import com.example.order.entity.Address;
 import com.example.order.entity.Category;
 import com.example.order.entity.Customer;
+import com.example.order.entity.Inventory;
 import com.example.order.entity.Product;
 import com.example.order.repo.AddressRepository;
 import com.example.order.repo.CategoryRepository;
+import com.example.order.repo.CreditCardRepository;
 import com.example.order.repo.CustomerRepository;
 import com.example.order.repo.InvoiceRepository;
-import com.example.order.repo.CreditCardRepository;
 import com.example.order.repo.ProductRepository;
 
 import lombok.extern.java.Log;
@@ -64,15 +65,24 @@ public class DbBootstrap implements CommandLineRunner {
 			Product prod1 = Product.builder().name("Chang's Lettuce Wraps")
 					.description("A secret family recipe and our signature dish. Enough said.")
 					.price(5.99).category(appetizers).build();
+			Inventory inv1 = Inventory.builder().name("Chang's Lettuce Wraps").quantity(10)
+					.location("storage-loc-001").product(prod1).build();
 			Product prod2 = Product.builder().name("Northern-Style Pork Spare Ribs")
 					.description("Slow-braised pork ribs with dry rub five-spice seasoning, smoked tableside.")
 					.price(9.99).category(appetizers).build();
+			Inventory inv2 = Inventory.builder().name("Northern-Style Pork Spare Ribs").quantity(10)
+					.location("storage-loc-002").product(prod2).build();
 			Product prod3 = Product.builder().name("Edamame")
 					.description("Steamed to order, tossed with kosher salt.")
 					.price(6.99).category(appetizers).build();
+			Inventory inv3 = Inventory.builder().name("Edamame").quantity(10)
+					.location("storage-loc-003").product(prod3).build();
 			Product prod4 = Product.builder().name("Kung Pao Brussels Sprouts")
 					.description("Wok-charred Brussels sprouts, peanuts, chili pods, Kung Pao sauce.")
 					.price(9.99).category(appetizers).build();
+			Inventory inv4 = Inventory.builder().name("Kung Pao Brussels Sprouts").quantity(10)
+					.location("storage-loc-004").product(prod4).build();
+			
 			List<Product> list = new ArrayList<>();
 			list.add(prod1);
 			list.add(prod2);

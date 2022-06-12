@@ -38,14 +38,14 @@ import lombok.ToString;
 @Entity
 @Table(name = "INVOICE")
 public class Invoice {
-	
+
 	// Model Order(Invoice) as a State Machine
 	enum Status {
 		CREATED, PAID, READY_TO_DELIVER, COMPLETED, CANCELED, REFUNDED
 	}
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	// Auto generated unique number
 //	@GeneratedValue(generator = "uuid")
@@ -61,18 +61,18 @@ public class Invoice {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Builder.Default
 	private Date createTime = new Date();
-	
-	//######### Relationship Mappings ############
-	
+
+	// ######### Relationship Mappings ############
+
 	@JsonBackReference("customerInvoiceRef")
 	@ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+	@JoinColumn(name = "customer_id", referencedColumnName = "id")
 	private Customer customer;
-	
+
 	@JsonManagedReference("invoiceInvoiceLineRef")
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<InvoiceLine> invoiceLines;
-	
+
 	@JsonManagedReference("invoicePaymentRef")
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Payment> payments;
