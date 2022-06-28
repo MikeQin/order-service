@@ -14,9 +14,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,12 +45,10 @@ public class Product {
 	
 	//######### Relationship Mappings ############
 	
-	@JsonBackReference("categoryProductRef")
 	@ManyToOne
 	@JoinColumn(name = "category_id", referencedColumnName = "id")
 	private Category category;
 	
-	@JsonManagedReference("productInventoryRef")
 	@OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private Inventory inventory;
 	

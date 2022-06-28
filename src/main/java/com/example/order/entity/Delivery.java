@@ -14,8 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -48,7 +46,7 @@ public class Delivery {
 	
 	//######### Relationship Mappings ############
 	
-	@JsonBackReference("invoiceDeliveryRef")
+	//@JsonBackReference("invoiceDeliveryRef")
 	@OneToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id") // FK
 	private Invoice invoice;

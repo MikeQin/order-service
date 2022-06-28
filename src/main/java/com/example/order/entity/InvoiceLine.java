@@ -8,8 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,7 +33,7 @@ public class InvoiceLine {
 	
 	//######### Relationship Mappings ############
 	
-	@JsonBackReference("invoiceInvoiceLineRef")
+	//@JsonBackReference("invoiceInvoiceLineRef")
 	@ManyToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id")
 	private Invoice invoice;

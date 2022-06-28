@@ -14,8 +14,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -53,7 +51,7 @@ public class Payment {
 	@JoinColumn(name = "credit_card_id", referencedColumnName = "id") // FK
 	private CreditCard creditCard;
 	
-	@JsonBackReference("invoicePaymentRef")
+	//@JsonBackReference("invoicePaymentRef")
 	@ManyToOne
 	@JoinColumn(name = "invoice_id", referencedColumnName = "id") // FK
 	private Invoice invoice;

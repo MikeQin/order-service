@@ -19,8 +19,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -71,13 +69,13 @@ public class Customer {
 	
 	//######### Relationship Mappings ############
 	
-	@JsonManagedReference("customerInvoiceRef")
+	//@JsonManagedReference("customerInvoiceRef")
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Invoice> invoices;
-	@JsonManagedReference("customerAddressRef")
+	//@JsonManagedReference("customerAddressRef")
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Address> addresses;
-	@JsonManagedReference("customerCreditCardRef")
+	//@JsonManagedReference("customerCreditCardRef")
 	@OneToMany(mappedBy="customer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<CreditCard> creditCards;
 }

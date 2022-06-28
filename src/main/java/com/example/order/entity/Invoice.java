@@ -19,9 +19,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -64,20 +61,20 @@ public class Invoice {
 
 	// ######### Relationship Mappings ############
 
-	@JsonBackReference("customerInvoiceRef")
+	//@JsonBackReference("customerInvoiceRef")
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id")
 	private Customer customer;
 
-	@JsonManagedReference("invoiceInvoiceLineRef")
+	//@JsonManagedReference("invoiceInvoiceLineRef")
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<InvoiceLine> invoiceLines;
 
-	@JsonManagedReference("invoicePaymentRef")
+	//@JsonManagedReference("invoicePaymentRef")
 	@OneToMany(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<Payment> payments;
 
-	@JsonManagedReference("invoiceDeliveryRef")
+	//@JsonManagedReference("invoiceDeliveryRef")
 	@OneToOne(mappedBy = "invoice", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Delivery delivery;
 }

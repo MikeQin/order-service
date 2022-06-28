@@ -10,8 +10,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,7 +48,7 @@ public class CreditCard {
 	
 	//######### Relationship Mappings ############
 	
-	@JsonBackReference("customerCreditCardRef")
+	//@JsonBackReference("customerCreditCardRef")
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id")
 	private Customer customer;

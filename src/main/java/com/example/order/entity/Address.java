@@ -9,8 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -50,7 +48,7 @@ public class Address {
 	
 	//######### Relationship Mappings ############
 	
-	@JsonBackReference("customerAddressRef")
+	//@JsonBackReference("customerAddressRef")
 	@ManyToOne
 	@JoinColumn(name = "customer_id", referencedColumnName = "id")
 	private Customer customer;
