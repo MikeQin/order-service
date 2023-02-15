@@ -37,7 +37,7 @@ public class ProductController {
 	private final ProductService productService;
 	private final ProductRepository productRepo;
 	
-	@Autowired
+//	@Autowired
 	public ProductController(ProductService productService, ProductRepository productRepo) {
 		this.productService = productService;
 		this.productRepo = productRepo;

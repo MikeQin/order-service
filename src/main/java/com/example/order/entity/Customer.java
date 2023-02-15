@@ -61,7 +61,7 @@ public class Customer {
             "A-Z]{2,7}$")
 	private String email;
 	@NotBlank
-	@Size(min=10,max=16)
+	@Size(min=10,max=13)
 	private String phone;
 	@Basic
 	@Temporal(TemporalType.DATE)

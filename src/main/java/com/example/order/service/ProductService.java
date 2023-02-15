@@ -3,7 +3,6 @@ package com.example.order.service;
 import java.io.IOException;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +24,7 @@ public class ProductService {
 	private final ProductRepository productRepo;
 	private final CategoryRepository categoryRepo;
 	
-	@Autowired
+//	@Autowired
 	public ProductService(ProductRepository productRepo,
 			CategoryRepository categoryRepo) {
 		this.productRepo = productRepo;

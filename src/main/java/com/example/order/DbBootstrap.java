@@ -34,7 +34,7 @@ public class DbBootstrap implements CommandLineRunner {
 	private final InvoiceRepository invoiceRepo;
 	private final CreditCardRepository paymentRepo;
 	
-	@Autowired
+//	@Autowired
 	public DbBootstrap(CustomerRepository customerRepo,
 			CategoryRepository categoryRepo,
 			ProductRepository productRepo,
