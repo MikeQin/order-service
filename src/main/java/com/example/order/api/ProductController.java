@@ -4,9 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.List;
 
-import javax.validation.constraints.NotBlank;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,6 +22,7 @@ import com.example.order.entity.Product;
 import com.example.order.repo.ProductRepository;
 import com.example.order.service.ProductService;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.extern.java.Log;
 
 @RestController

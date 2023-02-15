@@ -2,14 +2,14 @@ package com.example.order.repo;
 
 import java.util.Collection;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 //import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 import com.example.order.entity.Product;
+
+import jakarta.transaction.Transactional;
 
 // Excerpts are projections which we apply as default views to resource collections.
 // Adding excerpts: @RepositoryRestResource(excerptProjection = ProductProjection.class) // optional
